@@ -6,6 +6,12 @@ This repository contains the Talent Match Intelligence System, a web application
 
 https://talent-matching.streamlit.app/
 
+## Answer 
+
+1. EDA (https://github.com/Rio-Arya/talent-AI-system/blob/main/1.%20Analytic.ipynb
+2. SQL (https://github.com/Rio-Arya/talent-AI-system/blob/main/talent_matching_query.sql)
+3. App (https://talent-matching.streamlit.app/ || https://github.com/Rio-Arya/talent-AI-system/blob/main/streamlit_app.py)
+
 ## Key Features
 
 *   **AI-Powered Job Profiling**: Automatically generate a comprehensive job profile, including requirements, description, and key competencies, based on a role's name, level, and purpose.

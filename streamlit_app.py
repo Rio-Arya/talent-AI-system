@@ -115,37 +115,37 @@ def generate_job_profile(role_name, job_level, role_purpose):
     """
     
     try:
-        # Initialize the OpenAI client configured for OpenRouter
         client = openai.OpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
         
-        # Make the API call to generate the job profile
         response = client.chat.completions.create(
-            model="x-ai/grok-code-fast-1",  # Using a capable free model
+            model="x-ai/grok-code-fast-1",
             messages=[
                 {
                     "role": "system",
                     "content": (
                         "You are a senior HR assistant. "
-                        "Your task is to create clear, concise, and actionable job profiles "
-                        "including role purpose, responsibilities, required skills, and KPIs."
+                        "Create clear, concise, actionable job profiles including "
+                        "role purpose, responsibilities, skills, and KPIs."
                     )
                 },
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=400,  # Limit the response length
-            temperature=0.6  # Control the creativity of the response
+            max_tokens=400,
+            temperature=0.6
         )
-        
-        # Extract and return the generated text
-        if hasattr(response.choices[0], "message"):
-            result = response.choices[0].message["content"]
+
+        # Grok returns .text; some OpenRouter chat models return message.content
+        choice = response.choices[0]
+        if hasattr(choice, "text"):  # Grok / older models
+            result = choice.text
+        elif hasattr(choice, "message") and hasattr(choice.message, "content"):  # OpenAI-style
+            result = choice.message.content
         else:
-            result = response.choices[0].text
+            result = str(choice)  # fallback
 
         return result.strip()
 
     except Exception as e:
-        # Handle potential API errors gracefully
         st.error(f"Error generating AI profile: {e}")
         return "Failed to generate AI profile."
 

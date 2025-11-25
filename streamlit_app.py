@@ -120,14 +120,16 @@ def generate_job_profile(role_name, job_level, role_purpose):
         
         # Make the API call to generate the job profile
         response = client.chat.completions.create(
-            model="google/gemini-3-pro-preview",  # Using a capable free model
+            model="x-ai/grok-code-fast-1",  # Using a capable free model
             messages=[
-                {"role": "system", 
-                 "content": (
-                "You are a senior HR assistant. "
-                "Your task is to create clear, concise, and actionable job profiles "
-                "including role purpose, responsibilities, required skills, and KPIs."
-            )},
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a senior HR assistant. "
+                        "Your task is to create clear, concise, and actionable job profiles "
+                        "including role purpose, responsibilities, required skills, and KPIs."
+                    )
+                },
                 {"role": "user", "content": prompt}
             ],
             max_tokens=400,  # Limit the response length
@@ -135,11 +137,18 @@ def generate_job_profile(role_name, job_level, role_purpose):
         )
         
         # Extract and return the generated text
-        return response.choices[0].message.content.strip()
+        if hasattr(response.choices[0], "message"):
+            result = response.choices[0].message["content"]
+        else:
+            result = response.choices[0].text
+
+        return result.strip()
+
     except Exception as e:
         # Handle potential API errors gracefully
         st.error(f"Error generating AI profile: {e}")
         return "Failed to generate AI profile."
+
 
 # --- MAIN STREAMLIT UI ---
 st.title("Talent Match Intelligence System 🧠✨")

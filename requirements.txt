@@ -1,1 +1,9 @@
-streamlit
+import streamlit as st
+import pandas as pd
+import numpy as np
+import os
+from dotenv import load_dotenv
+from supabase import create_client, Client
+import openai
+import plotly.express as px
+import plotly.graph_objects as go

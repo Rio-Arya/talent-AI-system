@@ -2,6 +2,10 @@
 
 This repository contains the Talent Match Intelligence System, a web application designed for HR professionals to identify the best internal candidates for job openings. The system leverages a benchmark-based approach, where high-performing employees are selected as a baseline to score and rank other talent within the organization. It combines a powerful SQL-based matching engine with AI-driven job profile generation to streamline the internal mobility and talent discovery process.
 
+## Link 
+
+https://talent-matching.streamlit.app/
+
 ## Key Features
 
 *   **AI-Powered Job Profiling**: Automatically generate a comprehensive job profile, including requirements, description, and key competencies, based on a role's name, level, and purpose.

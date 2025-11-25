@@ -120,9 +120,14 @@ def generate_job_profile(role_name, job_level, role_purpose):
         
         # Make the API call to generate the job profile
         response = client.chat.completions.create(
-            model="meta-llama/llama-3.3-70b-instruct:free",  # Using a capable free model
+            model="google/gemini-3-pro-preview",  # Using a capable free model
             messages=[
-                {"role": "system", "content": "You are an expert HR assistant specializing in job profile creation."},
+                {"role": "system", 
+                 "content": (
+                "You are a senior HR assistant. "
+                "Your task is to create clear, concise, and actionable job profiles "
+                "including role purpose, responsibilities, required skills, and KPIs."
+            )},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=400,  # Limit the response length
